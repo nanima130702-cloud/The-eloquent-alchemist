@@ -10,7 +10,7 @@
 - スクリーンリーダーなどのソフトのインストールは不要です（ブラウザの音声合成・音声認識を使用）
 
 ## 起動手順
-1. GitHub Pages の公開URL【https://nanima130702-cloud.github.io/The-eloquent-alchemist/】
+1. GitHub Pages の公開URL【https://nanima130702-cloud.github.io/The-eloquent-alchemist/ 】
    をブラウザで開く、または同梱のHTMLファイルをブラウザで直接開くことでも起動可能
 2. 画面に「どのキーでも、どこをクリックしても、はじまります」と表示される。いずれかを操作すると音声案内が始まる
 3. マイクの許可を求める画面が出たら「許可」を選ぶ（キーボードではタブキーとエンターキーを選択可能）
