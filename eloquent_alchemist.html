@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>口八丁の錬金術師</title>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0a14;--fg:#f8f4ec;--card:#1b1830;--bd:#3d3858;--pri:#fbbf24;--mut:#94a3b8;--en:#fb7185;--ok:#34d399;--vi:#c4b5fd;--fu:#e879f9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);color:var(--fg);font-family:'DotGothic16','Noto Sans JP',system-ui,sans-serif;background-image:linear-gradient(#a855f71a 1px,transparent 1px),linear-gradient(90deg,#a855f71a 1px,transparent 1px);background-size:16px 16px;min-height:100dvh;line-height:1.6}
+button,input{font:inherit;color:inherit}
+.wrap{max-width:640px;margin:0 auto;padding:14px 12px 40px;display:flex;flex-direction:column;gap:12px}
+.panel{width:100%;border:2px solid #4a4468;background:var(--card);padding:12px;box-shadow:4px 4px 0 #0b0a14e6}
+.sm{font-size:11px;color:var(--mut);letter-spacing:.08em;font-weight:700}
+.btn{border:2px solid #0b0a14;background:var(--pri);color:#1a1405;font-weight:900;padding:12px 16px;cursor:pointer;box-shadow:3px 3px 0 #0b0a14e6;width:100%;font-size:16px}
+.btn:active{transform:translate(2px,2px)}
+.ghost{border:1px solid #ffffff26;background:transparent;color:#cbd5e1;padding:9px;cursor:pointer;font-size:12px;font-weight:700;flex:1}
+.ghost:hover{background:#ffffff0d}
+.vio{border:2px solid #c4b5fd99;background:#8b5cf626;color:#ede9fe;font-weight:900;padding:6px 10px;cursor:pointer;font-size:12px}
+h1{font-size:44px;line-height:1.15;color:#fde68a;margin:8px 0;text-shadow:3px 3px 0 #0b0a14,6px 6px 0 #fbbf2459;text-align:center}
+.row{display:flex;gap:8px;align-items:center}
+.bar{height:16px;border:2px solid #0b0a14;background:#1e293b;overflow:hidden}
+.bar i{display:block;height:100%;transition:width .5s}
+.cc{border:1px solid #ffffff1a;background:#0b0a1480;padding:10px;animation:pop .3s steps(3,end) both}
+.cc.dim{opacity:.5}.empty{border:1px dashed #fff3;padding:20px;text-align:center;color:var(--mut);font-size:13px}
+.sp{width:112px;height:112px;border:3px solid;box-shadow:0 0 8px currentColor;padding:3px;flex:none}
+.sp svg{width:100%;height:100%;display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.95)}to{opacity:1;transform:none}}
+.log{border:1px solid #ffffff1a;background:#0f0d1ccc;padding:8px 12px;font-weight:700;font-size:14px}
+.log.mu{border-color:#e879f999;background:#d946ef26}
+.tag{background:#d946ef;color:#fff;font-size:10px;padding:1px 6px;margin-right:6px}
+.ch{display:flex;width:100%;align-items:center;gap:10px;border:2px solid;padding:9px 10px;text-align:left;cursor:pointer;margin-bottom:8px;background:#ffffff0d}
+.ch b{flex:none;width:72px;text-align:center;font-size:11px;padding:3px 0;color:#111}
+.ch.off{opacity:.55}.ch small{display:block;font-size:10px;color:#cbd5e1cc}
+.ch kbd{margin-left:auto;border:1px solid #fff3;padding:2px 7px;font-size:12px}
+.nt{border:1px solid;padding:8px 12px;font-size:13px;font-weight:700;margin:6px 0}
+.nt.fail{border-color:#fb7185aa;background:#f43f5e26}.nt.ok{border-color:#34d399aa;background:#10b98126}
+.tabs{display:flex;gap:4px;border:2px solid #ffffff1a;padding:4px;background:#0f0d1cb3}
+.tabs button{flex:1;border:0;padding:8px 2px;font-size:12px;font-weight:700;background:transparent;color:#cbd5e1;cursor:pointer}
+.tabs .on{background:var(--pri);color:#1a1405}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.sb{border:1px solid #ffffff26;background:#0f0d1ccc;padding:8px;text-align:left;cursor:pointer;min-height:68px}
+.sb:hover{border-color:#fbbf2499}
+input[type=text]{flex:1;min-height:52px;border:1px solid #ffffff26;background:#0f0d1ccc;padding:0 12px;font-size:16px;outline:0}
+dialog{background:var(--card);color:var(--fg);border:2px solid #c4b5fd66;max-width:520px;width:calc(100% - 24px);max-height:85dvh;padding:0}
+dialog::backdrop{background:#000a}
+.dx{display:flex;gap:10px;border:2px solid;padding:6px;margin:8px}
+.pips span{display:inline-block;width:20px;height:10px;border-radius:5px;background:#334155;margin-right:4px}.pips .f{background:#34d399}
+ol{padding-left:20px;margin:6px 0;font-size:13px}
+.mt{display:flex;align-items:center;gap:8px;font-size:11px;margin:4px 0}.mt .b{flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden}.mt .b i{display:block;height:100%}
+.g4{grid-template-columns:repeat(4,1fr);gap:6px}.g4 .sb{padding:5px;min-height:0;text-align:center}.g4 .sb b{font-size:11px!important;line-height:1.2;display:block}.g4 .sb div{font-size:9px!important}.g4 .sp{margin:0 auto 4px}
+:focus-visible{outline:4px solid #fff;outline-offset:3px}
+.btn:hover,.ch:hover,.sb:hover,.vio:hover,.ghost:hover{outline:3px solid #fbbf24;outline-offset:2px}
+.sb,.ghost{border-width:2px;border-color:#ffffffb3}
+.big body{zoom:1.3}
+.mq{animation:mq 15s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<div id="app" class="wrap"></div>
+<dialog id="dex"></dialog>
+<script>
+// ===== データ =====
+const $=s=>document.querySelector(s),ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[ri(0,a.length-1)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MAXHP=150,HPCAP=300,MUT=0.2,ENEMY='自称・天才錬金術師',STAT={attack:'攻撃力',defense:'防御力'};
+const C=[
+{id:'dragon',spell:'炎のドラゴン',kw:['炎','ほのお','ドラゴン','竜','りゅう','火'],atk:18,def:6,fl:'気まぐれな炎の守り龍。火力だけは本物。',sp:{name:'業火のブレス',cost:2,kind:'damage',value:25}},
+{id:'daikon',spell:'大根騎士',kw:['大根','だいこん','騎士','ナイト','きし'],atk:7,def:16,fl:'白くてつよい。切られても育つ。',sp:{name:'大根おろしの祈り',cost:1,kind:'heal',value:12}},
+{id:'rat',spell:'雷雲のヒツジ',kw:['雷雲','雷','かみなり','ヒツジ','ひつじ','羊','雲','くも','電気','でんき'],atk:14,def:4,fl:'ふわふわの雷雲をまとった羊。もこもこだが、さわるとビリッとくる。',sp:{name:'ビリビリ綿毛',cost:1,kind:'damage',value:12,drain:1}},
+{id:'walrus',spell:'氷のセイウチ',kw:['氷','こおり','セイウチ','せいうち','アイス'],atk:12,def:11,fl:'ひげが凍っている。動きはのろい。',sp:{name:'冷凍保存',cost:2,kind:'weaken',value:8}},
+{id:'hamster',spell:'光のハムスター',kw:['光','ひかり','ハムスター','はむすたー','癒し','いやし'],atk:6,def:9,fl:'ほっぺに光をためこんでいる。',sp:{name:'癒しのひかり',cost:1,kind:'heal',value:16}},
+{id:'owl',spell:'影のフクロウ',kw:['影','かげ','フクロウ','ふくろう','闇','やみ'],atk:13,def:5,fl:'夜目がきく。というより夜そのもの。',sp:{name:'影縫い',cost:2,kind:'drainSpirit',value:3}},
+{id:'hippo',spell:'大地のカバ',kw:['大地','だいち','カバ','かば','土','つち'],atk:10,def:18,fl:'動かない。動く気もない。',sp:{name:'大地の加護',cost:1,kind:'shield',value:12}},
+{id:'crab',spell:'鋼のカニ',kw:['鋼','はがね','カニ','かに','鉄','てつ'],atk:15,def:12,fl:'殻は鉄、中身は普通のカニ。',sp:{name:'ハサミの錬金術',cost:3,kind:'damage',value:34}},
+{id:'pan',spell:'伝説のフライパン',kw:['フライパン','ふらいぱん','伝説','でんせつ','鍋','なべ'],atk:11,def:13,fl:'生き物ではないが、なぜか呼吸している。',sp:{name:'カウンター',cost:1,kind:'counter',value:0}},
+{id:'slime',spell:'粘液の哲学者',kw:['粘液','ねんえき','哲学者','てつがくしゃ','スライム','すらいむ','溶'],atk:1,def:1,fl:'「攻撃とは何か」を考えている間に溶ける。',sp:{name:'思索',cost:1,kind:'buffNextTurn',value:0.5}},
+{id:'cabbage',spell:'キャベト魔ト',kw:['キャベト魔ト','キャベツ','きゃべつ','トマト','とまと','野菜','やさい','魔ト'],atk:13,def:9,fl:'栄養豊富な野菜の魔物。口から吐き出す赤いエキスは、激辛ソースにも特効薬にもなる。',sp:{name:'赤いエキス',cost:2,kind:'extract',value:22,heal:15,fail:0.3}}
+];
+const note=s=>({damage:`防御力を無視して${s.value}ダメージ`+(s.drain?`＋相手の気力を${s.drain}減らす`:''),heal:`HPを${s.value}回復`,shield:`シールドを${s.value}はる`,weaken:`相手の次の攻撃力を${s.value}下げる`,drainSpirit:`相手の気力を${s.value}減らす`,gainSpirit:`自分の気力を${s.value}ふやす`,counter:'相手の次の攻撃を85%軽減し、受けるダメージの115%を無属性ダメージで返す',extract:`防御力を無視して${s.value}ダメージ。ただし${Math.round(s.fail*100)}%の確率で相手のHPを${s.heal}回復してしまう`,buffNextTurn:`次のターン開始時、攻撃力か防御力のどちらかがランダムで${Math.round(s.value*100)}%上がる`})[s.kind];
+const vt=c=>`攻撃力${c.atk}、防御力${c.def}、特殊能力は${c.sp.name}。${note(c.sp)}`;
+const TL=['炎','草','電気','氷','土','鋼','光','影','伝説'],AB=-1;
+const TM=[[AB,1.3,1,1.3,.7,1.3,1,1,.8],[.7,1,1,.7,1.3,.7,1,1,.8],[1,.7,AB,1.3,AB,1.3,1,1,.8],[.7,1.3,1,AB,1.3,.7,1,1,.8],[1.3,.7,1,.7,1,1.3,1,1,.8],[.7,1.3,.7,1.3,.7,AB,1,1,.8],[1.05,AB,1.05,1.05,1.05,1.05,1.05,1.1,.8],[1.05,1.05,1.05,1.05,1.05,1.05,1.1,AB,.8],[1.2,1.2,1.2,1.2,1.2,1.2,1.2,1.2,1]];
+const mult=(a,d)=>{if(!a||!d)return 1;const v=[];[].concat(a).forEach(x=>[].concat(d).forEach(y=>v.push(TM[TL.indexOf(x)][TL.indexOf(y)])));return v.every(x=>x<0)?-1:v.reduce((s,x)=>s+Math.max(0,x),0)/v.length};
+const TC={炎:'#ff5a36',草:'#34d27a',電気:'#ffe14d',氷:'#5cd0ff',土:'#d98b4a',鋼:'#a9bccb',光:'#fff3a8',影:'#a78bfa',伝説:'#f0abfc'};
+const chartHtml=()=>{const chip=t=>`<span style='border:1px solid ${TC[t]};color:${TC[t]};background:#000;padding:0 7px;font-size:12px;font-weight:900'>${t}</span>`;
+ return `<div style='padding:8px 12px'><div class='sm' style='margin-bottom:6px'>属性相性フロー（攻撃側 ▶ 倍率 ▶ 防御側）</div>${TM.map((r,i)=>{const g={};r.forEach((v,j)=>(g[v]=g[v]||[]).push(TL[j]));const ks=Object.keys(g).map(Number).filter(v=>v!==1).sort((a,b)=>a<0?-1:b<0?1:b-a);
+  return `<div style='display:flex;align-items:center;gap:8px;margin-bottom:8px'><div style='flex:none;width:58px;text-align:center;border:2px solid ${TC[TL[i]]};color:${TC[TL[i]]};background:#000;padding:6px 0;font-weight:900'>${TL[i]}</div><div style='flex:1;border-left:2px solid #fff3;padding-left:6px'>${ks.map(v=>{const c=v<0?'#34d399':v>1?'#fbbf24':v<1?'#fb7185':'#94a3b8';return `<div style='display:flex;align-items:center;gap:6px;margin:2px 0'><span style='flex:none;width:84px;text-align:center;color:${c};font-size:11px;font-weight:900'>─ ${v<0?'吸収':Math.round(v*100)+'%'} ─▶</span><span style='display:flex;flex-wrap:wrap;gap:4px'>${g[v].map(chip).join('')}</span></div>`}).join('')}</div></div>`}).join('')}<div class='sm' style='font-weight:400'>※複数属性の生き物は、各属性の倍率の平均で計算します。</div></div>`};
+const chartTbl=()=>`<div style='overflow-x:auto;padding:8px'><div class='sm'>属性相性（縦＝攻撃側／横＝防御側）</div><table style='border-collapse:collapse;font-size:10px;text-align:center'><tr><th></th>${TL.map(t=>`<th>${t}</th>`).join('')}</tr>${TM.map((r,i)=>`<tr><th>${TL[i]}</th>${r.map(v=>`<td style='border:1px solid #fff2;padding:2px 3px;color:${v<0?'#34d399':v>1?'#fbbf24':v<1?'#fb7185':'#94a3b8'}'>${v<0?'吸収':Math.round(v*100)+'%'}</td>`).join('')}</tr>`).join('')}</table></div>`;
+function hit(me,foe,d0,lead,tone,ty,suf=''){const m=mult(ty,foe.cr&&foe.cr.ty);
+ if(m<0){const b=foe.hp;foe.hp=Math.min(HPCAP,foe.hp+Math.max(1,d0));setTimeout(()=>sfx('heal'),200);return[L(`${lead}しかし${[].concat(foe.cr.ty).join('/')}属性に吸収された！ 相手のHPが${foe.hp-b}回復${suf}`,tone,`吸収されて、${foe.hp-b?`相手の体力が${foe.hp-b}回復`:'相手の体力は満タンのまま'}`)]}
+ const d=Math.max(1,Math.round(d0*m)),tag=m>=1.3?'（効果ばつぐん！）':m<1?'（いまひとつ…）':m>1?'（やや有利）':'';
+ if(foe.counter){const t=Math.max(1,Math.round(d*.15)),r=Math.max(1,Math.round(d*1.15));foe.hp=Math.max(0,foe.hp-t);me.hp=Math.max(0,me.hp-r);return[L(`${lead}${d}ダメージ${tag}…だがカウンター！ ${t}ダメージに軽減され、無属性${r}ダメージを返された${suf}`,tone,`${t}ダメージ。カウンターで、${r}ダメージを受けた`)]}
+ foe.hp=Math.max(0,foe.hp-d);setTimeout(()=>sfx('dmg'),200);return[L(`${lead}${d}ダメージ${tag}${suf}`,tone,`${d}ダメージ${m>=1.3?'、効果ばつぐん':m<1?'、いまひとつ':''}`)]}
+const TY={dragon:'炎',daikon:'草',rat:'電気',walrus:'氷',hamster:'光',owl:'影',hippo:'土',crab:'鋼',pan:'伝説',slime:['光','影','伝説'],cabbage:'草'};C.forEach(c=>{c.name=c.spell;c.ty=TY[c.id]});
+// ドット絵：[行…], [k,a,b,c,e,下敷き,枠]
+const PX={
+dragon:[['..k..........k..','.kck........kck.','.kbk..kkkk..kbk.','..kbkkaaaakkbk..','...kaaaaaaaak...','..kaaeaaaaeaak..','..kaakaaaakaak..','.kaaaaaaaaaaaak.','.kaabaaaaaabaak.','..kaaakkkkaaak..','..kaakbbbbkaak..','...kaabbbbaak...','..kbkaaaaaakbk..','.kcbkkaaaakkbck.','..kkk.kkkk.kkk..','................'],"#7a1608","#ff4d2e","#ff8a00","#ffe02e","#fff","#3a1109","#ff6a3d"],
+daikon:[["................","....b..b...b....","...bb.bb..bb....","....bbbb.bb.....",".....cccccc.....","....cccccccc....","....ckccckcc....",".....c.e.e.c....","......aaaa......",".....aaaaaa.....","....caaaaaac....","....caaaaaac....",".....aaaaaa.....","......aaaa......",".......aa.......","................"],"#2c4a38","#f7f3e6","#49d47f","#b7c7d6","#101820","#123322","#49d47f"],
+rat:[['..bbb.bbbb.bbb..','.baaabaaaabaaab.','baaaaaaaaaaaaaab','baaaakkkkkkaaaab','baaakkekkekkaaab','baaaakkkkkkaaaab','baaaaakkkkaaaaab','baaaaaaaaaaaaaab','baaaaaaaccaaaaab','.baaaaaccaaaaab.','..bbaaaaaaaabb..','...bbbbbbbbbb...','...kk......kk...','...kk......kk...','..kkk.....kkk...','................'],'#1c2a4a','#e8eefc','#7f93b8','#ffe14d','#ffffff',"#3a2f05","#ffe14d"],
+walrus:[["................","..kk........kk..",".kaak......kaak.","..kaaaaaaaaaak..",".kaaaaaaaaaaaak.",".kaeaaaaaaaaeak.",".kaaaaaaaaaaaak.",".kaaabbbbbbaaak.","..kaabbbbbbaak..","..kaakbbbbkaak..","...kaakkkkaak...","....kaaaaaak....","...kaaaaaaaak...","...kaaaaaaaak...","....kkkkkkkk....","................"],"#0b4a70","#4fc3f7","#fff","#b9e8ff","#052338","#06283f","#5cd0ff"],
+hamster:[["................","...kk......kk...","..kaak....kaak..","..kaakkkkkkaak..",".kaaaaaaaaaaaak.",".kaeaaaaaaaaeak.",".kaaaaaaaaaaaak.",".kaabbaaaabbaak.",".kaabbaaaabbaak.",".kaaaaaaaaaaaak.","..kaaaaaaaaak...","...kaaaaaaaak...","...kkkkkkkkkk...","..kaak....kaak..","..kkk......kkk..","................"],"#7a3f12","#ffcf87","#ff8fa3","#fff3a8","#3a1a10","#3a2410","#ffc06b"],
+owl:[["................","..kk......kk....",".kaak....kaak...",".kaakkkkkkaak...",".kaaaaaaaaaaak..",".kaeeaaaeeaak...",".kaeeaaaeeaak...",".kaakaaaaakaak..",".kaaakkkkaaaak..",".kaaaaaaaaaaak..",".kaaaaaaaaaaak..","..kaaaaaaaaak...","...kaak..kaak...","...kkkk..kkkk...","................","................"],"#2a1150","#8b5cf6","#4c2a8a","#b9a0ff","#ffd60a","#241040","#a78bfa"],
+hippo:[["................","..kkk....kkk....",".kaaak..kaaak...",".kaaaaaaaaaaak..","kaaaaaaaaaaaak..","kaeaaaaaaaaeak..","kaaaaaaaaaaaak..","kaabbbbbbbbbak..","kaabkbbbbbkbbak.",".kaaaaaaaaaaak..","..kaaaaaaaaak...","..kkkk..kkkk....","..kaak..kaak....","..kkkk..kkkk....","................","................"],"#4a2a12","#b5754a","#e3c39a","#d99b6a","#1a0c04","#33200f","#d98b4a"],
+crab:[["................",".kk........kk...","kaak......kaak..","kaaak....kaaak..",".kaaakkkkaaak...","..kaaaaaaaaak...","..kaeaaaaaeak...","..kaaaaaaaaak...","..kaabbbbaaak...","..kaaaaaaaaak...",".kaak.kk.kaak...",".kk..k..k..kk...","....ka..ak......","...kaak.kaak....","...kkkk.kkkk....","................"],"#16465e","#cfdae4","#7f93a3","#eef4f9","#0b2b3a","#0f2d3a","#a9bccb"],
+pan:[["................",".....kkkkkk.....","...kkaaaaakk....","..kaaaacccaaak..","..kaacccccccak..","..kaacccccccak..","..kaaaacccaaak..","...kkaaaaakk....",".....kkkkkk.....",".......kbbk.....",".......kbbkk....","........kkbbk...",".........kkk....","................","................","................"],"#0b0e16","#2c2f3a","#dfe6f0","#ffe14d","#0b0e16","#1a1c24","#ffe14d"],
+slime:[["................","......kkkk......","....kkaaaakk....","...kaaaaaaaak...","..kaeeeeeeeeak..","..kaakaaaakaak..","..kaakaaaakaak..","..kaeeeeeeeeak..","..kaaaaaaaaaak..",".kaaaaaaaaaaaak.","kaaaaaaaaaaaaaak","kaaaaaaaaaaaaaak",".kaaaaaaaaaaaak.","..kkkkkkkkkkkk..","................","................"],"#0a3b2a","#3ff2a1","#14a06a","#a9ffd6","#fff","#07321f","#3ff2a1"],
+cabbage:[['..............bb.......','............bbbb..b....','..bbb.b.bbbbbbbbbbbb...','..bbbbbbbbbbbbbbbbb....','..babbbbbbbabbbbbbbb...','..babbabaabaaaaabbbbb..','.bbabaaaaaaaaaaaaaaab..','.bbaakkkkaaaaakkkkaabb.','.baaaakekaaaaakekaaaab.','.baaaakkkaaaaakkkaaaab.','.baaaakkkaaaaakkkaaaab.','.baaaaaaaaaaaaaaaaaaab.','.baaaaaaaaaaaaaaaaaaab.','.bbaaaaaaafffaaaaaaabb.','.bbaaaaaaffffaaaaaaab..','.cbbaaaaaaaafaaaaaabb..','.ccbbbaaaaaafaaaaabbcc.','.ccccbbbaaaaabbbbbcccc.','.ccc...bbbbbbccc..cccc.','.ccc...ccc..cccc..cccc.','cccc...ccc..ccccc.ccccc','ccc....ccc...cccc..cccc','.......ccc....cccc...cc','.......cc......ccc.....','................c......'],'#000','#00c7be','#34c759','#a8f0a4','#fff','#000','#34c759','#ff3b30']
+};
+const VIV={dragon:'#ff2a00',daikon:'#00ff66',rat:'#ffee00',walrus:'#00d0ff',hamster:'#ff9500',owl:'#b026ff',hippo:'#ff6a00',crab:'#3fa9ff',pan:'#ffe600',slime:'#00ffb0',cabbage:'#7dff2a'};
+const col=id=>({bg:'#000',ac:VIV[id]});
+const sprite=id=>{const[r,k,a,b,c,e,,,f]=PX[id],p={k,a,b,c,e,f};let s='';r.forEach((row,y)=>[...row].forEach((ch,x)=>{if(p[ch])s+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${p[ch]}"/>`}));return`<svg viewBox="0 0 ${r[0].length} ${r.length}" shape-rendering="crispEdges">${s}</svg>`};
+const sbox=(id,size)=>`<div class="sp" style="border-color:${col(id).ac};background:${col(id).bg};${size?`width:${size}px;height:${size}px;padding:2px`:''}">${sprite(id)}</div>`;
+
+// ===== 錬成・バトルエンジン =====
+const WHY=['詠唱の途中でかんだ','呪文の一部が別の言葉に聞こえた','気合が入りすぎて言葉がねじれた','工房のネコが横から鳴いた','滑舌があやしかった'];
+let S=null,logId=0,spoken=0,lastSum=null,lock=false;
+const L=(t,tone='system',speak)=>({id:++logId,t,tone,speak});
+const addLog=(...e)=>{S.log=[...e.reverse(),...S.log].slice(0,40)};
+const eff=(u,k,b)=>Math.round(b*(u.buff&&u.buff.stat===k?u.buff.mul:1));
+const unit=()=>({hp:MAXHP,spi:0,cr:null,shield:0,defended:false,atkMod:0,buff:null,pend:null});
+function summonC(id){const w=C.find(c=>c.id===id)||C[0];return Math.random()<MUT?{cr:pick(C.filter(c=>c.id!==w.id)),w,mut:1,why:pick(WHY)}:{cr:w,w,mut:0}}
+const sText=(who,r)=>r.mut?`${who}は「${r.w.spell}」を召喚しようとしたら、「${r.cr.name}」が召喚された！（錬成事故：${r.why}）`:`${who}は「${r.w.spell}」を唱え、「${r.cr.name}」の錬成に成功！`;
+function start(){const f=summonC(pick(C).id);logId=0;spoken=0;lastSum=null;lastPh='';gen++;q=[];busy=false;if(window.speechSynthesis)speechSynthesis.cancel();
+ S={p:unit(),e:unit(),log:[],turn:1,phase:'summon',win:null,redo:false,last:null,mut:{p:0,e:0}};
+ addLog(L('呪文を唱えて錬成しよう。あなたが錬成すると、相手も生き物を錬成します。'));M=null;render()}
+function special(me,foe,sp,nm,am,tone){const n=me.cr.name,o=[];
+ if(sp.kind==='damage'){const d0=Math.max(1,sp.value+am-(foe.shield||0));foe.shield=0;o.push(...hit(me,foe,d0,`${nm}の「${n}」が${sp.name}！ 防御力を無視して`,tone,me.cr.ty));if(sp.drain){foe.spi=Math.max(0,foe.spi-sp.drain);o.push(L(`さらに相手の気力を${sp.drain}うばった！`))}}
+ else if(sp.kind==='heal'){const b=me.hp;me.hp=Math.min(HPCAP,me.hp+sp.value);o.push(L(`${nm}の「${n}」が${sp.name}！ HPが${me.hp-b}回復（HP ${me.hp}）`,tone,`${me.hp-b?`体力が${me.hp-b}回復`:'体力は満タンのまま'}`))}
+ else if(sp.kind==='shield'){me.shield=(me.shield||0)+sp.value;o.push(L(`${nm}の「${n}」が${sp.name}！ シールドを${sp.value}はった`,tone))}
+ else if(sp.kind==='weaken'){foe.atkMod=(foe.atkMod||0)-sp.value;o.push(L(`${nm}の「${n}」が${sp.name}！ 相手の次の攻撃力が${sp.value}下がった`,tone))}
+ else if(sp.kind==='drainSpirit'){foe.spi=Math.max(0,foe.spi-sp.value);o.push(L(`${nm}の「${n}」が${sp.name}！ 相手の気力を${sp.value}減らした`,tone))}
+ else if(sp.kind==='gainSpirit'){me.spi=Math.min(5,me.spi+sp.value);o.push(L(`${nm}の「${n}」が${sp.name}！ 自分の気力が${sp.value}ふえた`,tone))}
+ else if(sp.kind==='extract'){if(Math.random()<sp.fail){const b=foe.hp;foe.hp=Math.min(HPCAP,foe.hp+sp.heal);o.push(L(`${nm}の「${n}」が${sp.name}！ …しかし失敗！ 相手のHPを${foe.hp-b}回復してしまった`,tone,`失敗して、${foe.hp-b?`相手の体力が${foe.hp-b}回復`:'相手の体力は満タンのまま'}`))}else{const d0=Math.max(1,sp.value+am-(foe.shield||0));foe.shield=0;o.push(...hit(me,foe,d0,`${nm}の「${n}」が${sp.name}！ 防御力を無視して`,tone,me.cr.ty))}}
+ else if(sp.kind==='counter'){me.counter=true;o.push(L(`${nm}の「${n}」が${sp.name}の構え！ 相手の次の攻撃を85%軽減し、115%の無属性ダメージで返す`,tone))}
+ else if(sp.kind==='buffNextTurn'){me.pend={mul:1+sp.value};o.push(L(`${nm}の「${n}」が${sp.name}！ 次のターンの開始時、攻撃力か防御力のどちらかが${Math.round(sp.value*100)}%上がる`,tone))}
+ return o}
+function resolve(ms,action){const fs=ms==='p'?'e':'p',me=S[ms],foe=S[fs],nm=ms==='p'?'あなた':ENEMY,sp=me.cr.sp,tone=ms==='p'?'player':'enemy',logs=[];
+ me.defended=false;me.shield=0;sfx(action==='attack'?'atk':action==='defend'?'def':'sp');
+ if(action==='attack'){const raw=Math.max(1,eff(me,'attack',me.cr.atk)+(me.atkMod||0))+ri(-2,2),fd=foe.cr?eff(foe,'defense',foe.cr.def):0,g=Math.floor(fd/2)+(foe.defended?Math.floor(fd/2):0)+(foe.shield||0),d=Math.max(1,raw-g);
+  foe.shield=0;me.spi=Math.min(5,me.spi+1);logs.push(...hit(me,foe,d,`${nm}の「${me.cr.name}」の攻撃！ `,tone,me.cr.ty,`（相手の守り ${g}／気力+1）`))}
+ else if(action==='defend'){me.shield=eff(me,'defense',me.cr.def);me.spi=Math.min(5,me.spi+1);logs.push(L(`${nm}は「${me.cr.name}」で身を守った！ シールド${me.shield}（気力+1）`,tone))}
+ else{me.spi=Math.max(0,me.spi-sp.cost);logs.push(...special(me,foe,sp,nm,me.atkMod||0,tone))}
+ me.defended=action==='defend';me.atkMod=0;foe.counter=false;if(logs[0])logs[0].speak=`${ms==='p'?'あなた':'あいて'}は、${me.cr.name}で${{attack:'攻撃',defend:'防御',special:`特殊能力、${sp.name}`}[action]}${logs[0].speak?'。'+logs[0].speak:''}`;if(me.buff)me.buff=me.buff.turns>1?{...me.buff,turns:me.buff.turns-1}:null;addLog(...logs)}
+function enemyAction(){const e=S.e,sp=e.cr.sp,can=e.spi>=sp.cost,useless=(sp.kind==='heal'&&e.hp>=HPCAP-10)||(sp.kind==='gainSpirit'&&e.spi>=5)||(sp.kind==='buffNextTurn'&&e.pend);
+ if(can&&!useless&&Math.random()<.65)return'special';if(e.hp<=45&&Math.random()<.6)return'defend';return'attack'}
+function summonDone(r,notes){S.p.cr=r.cr;S.mut.p+=r.mut?1:0;if(!S.e.cr){const f=summonC(pick(C).id);S.e.cr=f.cr;S.mut.e+=f.mut?1:0;S.eNew=f;addLog(L(sText(`相手（${ENEMY}）`,f),f.mut?'mutation':'enemy'))}if(r.mut)sfx('mut');S.last={side:'player',...r,n:notes.length};addLog(...notes);S.phase='action';S.redo=false;M=null;render();tutEv('sum')}
+function pSummon(id,heard){const r=summonC(id),base=heard?`あなたは「${heard}」と唱えた → 呪文「${r.w.spell}」として錬成。`:null;
+ summonDone(r,[L(base?base+(r.mut?` 「${r.w.spell}」を召喚しようとしたら、「${r.cr.name}」が召喚された！（錬成事故：${r.why}）`:` 「${r.cr.name}」が生まれた！`):sText('あなた',r),r.mut?'mutation':'player')])}
+function redo(){if(!S.last||!S.p.cr||S.redo||S.phase!=='action')return;S.log=S.log.slice(S.last.n||1);S.mut.p=Math.max(0,S.mut.p-(S.last.mut?1:0));S.p.cr=null;S.last=null;S.phase='summon';S.redo=true;M=null;render()}
+function pAct(a){if(S.phase!=='action'||lock||(TUT&&!TUT.ready))return;const sp=S.p.cr.sp;
+ if(a==='special'&&S.p.spi<sp.cost){$('#nt').innerHTML=`<div class="nt fail">気力が足りません。${sp.name}には気力${sp.cost}が必要です（いま、気力${S.p.spi}）。攻撃か防御で気力がたまります。</div>`;return}
+ lock=true;setTimeout(()=>lock=false,500);resolve('p',a);
+ if(S.e.hp<=0){S.phase='over';S.win='p'}else if(S.p.hp<=0){S.phase='over';S.win='e'}else{S.phase='enemy';setTimeout(enemyTurn,1200)}render();tutEv('act')}
+function enemyTurn(){if(!S||S.phase!=='enemy')return;const r=summonC(pick(C).id);S.e.cr=r.cr;S.mut.e+=r.mut?1:0;if(r.mut)sfx('mut');S.last={side:'enemy',...r};
+ addLog(L(sText(`相手（${ENEMY}）`,r),r.mut?'mutation':'enemy'));resolve('e',enemyAction());
+ if(S.e.hp<=0&&S.p.hp>0){S.phase='over';S.win='p'}else if(S.p.hp<=0){S.phase='over';S.win='e'}else{const o=[];['p','e'].forEach(k=>{const u=S[k];if(!u.pend)return;const st=pick(Object.keys(STAT));u.buff={stat:st,mul:u.pend.mul,turns:1};o.push(L(`${k==='p'?'あなた':ENEMY}の錬成獣の思索が実を結んだ！ このターンは${STAT[st]}が${Math.round((u.pend.mul-1)*100)}%上がる`,k==='p'?'player':'enemy'));u.pend=null});
+  if(o.length)addLog(...o);S.turn++;S.phase='summon';S.redo=false}
+ render()}
+
+// ===== 声の抑揚（マイク分析） =====
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const AC=window.AudioContext||window.webkitAudioContext,SRC=window.SpeechRecognition||window.webkitSpeechRecognition;
+const canMeasure=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&AC);
+function pitchOf(x,sr,rms){const n=x.length,mn=Math.max(2,Math.floor(sr/500)),mx=Math.min(n>>1,Math.floor(sr/70)),cs=new Float32Array(mx+2);let cmax=0;for(let lag=mn;lag<=mx+1;lag++){let c=0,m=0;for(let i=0;i<n-lag;i+=2){c+=x[i]*x[i+lag];m++}cs[lag]=m?c/m:0;if(lag<=mx&&cs[lag]>cmax)cmax=cs[lag]}if(cmax/(rms*rms)<.45)return 0;for(let lag=mn+1;lag<=mx;lag++){if(cs[lag]>=.85*cmax&&cs[lag]>=cs[lag-1]&&cs[lag]>=cs[lag+1]){const a=cs[lag-1],b=cs[lag],c=cs[lag+1],d=a-2*b+c;return sr/(d?lag+.5*(a-c)/d:lag)}}return 0}
+ 
+ 
+function frameOf(an,sr){const b=new Uint8Array(an.fftSize),x=new Float32Array(b.length);an.getByteTimeDomainData(b);let s=0;
+ for(let i=0;i<b.length;i++){const v=(b[i]-128)/128;x[i]=v;s+=v*v}const rms=Math.sqrt(s/b.length);
+ return{loud:clamp((20*Math.log10(rms+1e-8)+55)/45),pitch:rms>.004?pitchOf(x,sr,rms):0}}
+function summarize(fr){const ls=fr.map(f=>f.loud).sort((a,b)=>b-a),tc=Math.max(1,Math.round(ls.length*.25)),loud=clamp(ls.slice(0,tc).reduce((a,b)=>a+b,0)/tc),ps=fr.map(f=>f.pitch).filter(p=>p>0);
+ if(ps.length<4)return{loud,pitch:.4,swing:.15};const st=ps.map(p=>12*Math.log2(p/100)),med=a=>[...a].sort((x,y)=>x-y)[a.length>>1],m0=med(st),ok=st.filter(v=>Math.abs(v-m0)<=9),use=ok.length>=3?ok:st,mean=use.reduce((a,b)=>a+b,0)/use.length,sd=Math.sqrt(use.reduce((a,b)=>a+(b-mean)**2,0)/use.length),hz=100*Math.pow(2,med(use)/12);return{loud,pitch:clamp((hz-70)/280),swing:clamp((sd-.5)/4.5)}}
+ 
+const MIC={ok:false,an:null,ctx:null,stream:null,e:null,p:null};
+function micTag(){document.querySelectorAll('.mt2').forEach(e=>{e.textContent=MIC.ok?'🎤 マイク：許可済み':'🎤 マイク：未許可（タップで許可）'})}
+function micInit(force){if(MIC.ok)return Promise.resolve();if(MIC.p)return MIC.p;if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&AC)||(MIC.tried&&!force))return Promise.resolve();MIC.tried=true;
+ return MIC.p=navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{const ctx=new AC(),an=ctx.createAnalyser();an.fftSize=2048;ctx.createMediaStreamSource(stream).connect(an);Object.assign(MIC,{ok:true,stream,ctx,an,e:null});MIC.p=null;stream.getAudioTracks().forEach(t=>{t.onended=()=>{MIC.ok=false;MIC.an=null;MIC.tried=false;micTag()}});micTag();if(navigator.permissions&&navigator.permissions.query)navigator.permissions.query({name:'microphone'}).then(p=>{MIC.perm=p.state;p.onchange=()=>{MIC.perm=p.state}}).catch(()=>{})}).catch(e=>{MIC.e=e;MIC.p=null;micTag()})}
+const VS={on:false,live:{loud:0,pitch:0,swing:0},err:null,fr:[],t:0,st:0,stream:null,ctx:null};
+async function vsStart(){if(TUT&&!TUT.ready)return;stopCmd();VS.err=null;VS.fr=[];VS.live={loud:0,pitch:0,swing:0};
+ try{await micInit();const{ctx,an}=MIC;if(!an)throw MIC.e||new Error('mic');if(ctx.state==='suspended')await ctx.resume();
+  VS.on=true;tutEv('cap');
+  VS.t=setInterval(()=>{VS.fr.push(frameOf(an,ctx.sampleRate));VS.live=summarize(VS.fr);['loud','pitch','swing'].forEach(k=>{const e=$('#m-'+k);if(e){e.style.width=Math.round(VS.live[k]*100)+'%';$('#v-'+k).textContent=Math.round(VS.live[k]*100)+'%'}})},100);
+  VS.st=setTimeout(vsStop,5000)}
+ catch(e){vsKill();VS.err=e&&e.name==='NotAllowedError'?'マイクの使用が許可されていません。この埋め込み表示ではブラウザがマイクを遮断することがあります。ブラウザのマイク許可を確認するか、HTMLファイルを保存してブラウザで直接開いてください（文字・ボタンはそのまま遊べます）。':'マイクを使えませんでした。端末のマイクとブラウザの設定を確認してください。'}
+ renderSummon()}
+function vsKill(){clearInterval(VS.t);clearTimeout(VS.st);VS.on=false}
+function vsStop(){if(!VS.on)return;const fr=VS.fr;vsKill();if(!fr.length){VS.err='声をとらえられませんでした。もう一度、マイクに向かって声を出してください。';renderSummon();return}
+ const f=summarize(fr),r=buildVoice(f);summonDone(r.result,r.notes)}
+const POOLS={power:{label:'力の型',ids:['dragon','crab','rat','walrus','cabbage']},heal:{label:'癒しの型',ids:['hamster','daikon','slime']},guard:{label:'守りの型',ids:['hippo','owl','pan']}};
+const VWHY=['声の抑揚が大きすぎて、呪文がねじれた','声が震えて、別の生き物になってしまった','叫びすぎて、言葉が崩れた'];
+function buildVoice(f){const loud=clamp(f.loud),pitch=clamp(f.pitch),swing=clamp(f.swing),key=swing>=.5?'power':pitch>=.5?'heal':'guard',pool=POOLS[key],byId=id=>C.find(c=>c.id===id),wanted=byId(pick(pool.ids)),
+ m={atk:Math.round((loud-.5)*24),def:Math.round((.5-swing)*12),pct:clamp((pitch-.5)*.7+(swing-.3)*.5,-.45,.55)},mut=Math.random()<MUT,why=mut?pick(VWHY):null,ch=mut?byId(pick(pool.ids.filter(i=>i!==wanted.id))):wanted,
+ _k=ch.id==='slime'?.7:1,_u=(m.atk=Math.round(m.atk*_k),m.def=Math.round(m.def*_k),m.pct*=_k),v=ch.sp.kind==='buffNextTurn'?ch.sp.value:Math.max(1,Math.round(ch.sp.value*(1+m.pct))),cr={...ch,atk:Math.max(1,ch.atk+m.atk),def:Math.max(1,ch.def+m.def),sp:{...ch.sp,value:v}},p=x=>Math.round(x*100)+'%',sg=n=>n>0?'+'+n:''+n;
+ return{result:{cr,w:wanted,mut:mut?1:0,why},notes:[L(`声の抑揚で錬成：抑揚${p(swing)}・大きさ${p(loud)}・高さ${p(pitch)} → ${pool.label}。攻撃力${sg(m.atk)}／防御力${sg(m.def)}／特殊の値 ${ch.sp.value}→${v}（錬成事故の危険度${p(MUT)}）`,'player'),mut?L(`「${wanted.name}」を召喚しようとしたら、「${cr.name}」が召喚された！（錬成事故：${why}）`,'mutation'):L(`「${cr.name}」が生まれた！`,'player')]}}
+
+// ===== 言葉→呪文の判定 =====
+const norm=t=>t?String(t).normalize('NFKC').toLowerCase().replace(/[\u30a1-\u30f6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)).replace(/[のをはがにでと、。！!?？\sー・]/g,''):'';
+function lcs(a,b){let best=0,pr=new Array(b.length+1).fill(0);for(let i=1;i<=a.length;i++){const row=new Array(b.length+1).fill(0);for(let j=1;j<=b.length;j++)if(a[i-1]===b[j-1]){row[j]=pr[j-1]+1;if(row[j]>best)best=row[j]}pr=row}return best}
+function match(text){const heard=(text||'').trim(),n=norm(heard);
+ const sc=C.map(c=>{let s=0,sim=0;c.kw.forEach(k=>{const nk=norm(k);if(n&&n.includes(nk))s+=nk.length+1;sim=Math.max(sim,lcs(n,nk))});return{c,s,sim}}).sort((a,b)=>b.s-a.s||b.sim-a.sim);
+ const strong=sc.filter(x=>x.s>0),cand=(strong.length?strong:sc.filter(x=>x.sim>=2)).slice(0,3).map(x=>x.c);
+ return{cr:sc[0].s>0?sc[0].c:null,cand,heard}}
+
+// ===== 読み上げ =====
+let TUT=null,lastPh='',reading=!!window.speechSynthesis,q=[],busy=false,gen=0;
+function say(t){if(TUT||!reading||!window.speechSynthesis)return;q.push(yomi(t));if(!busy)step(gen)}
+function step(g){const s=speechSynthesis;if(g!==gen)return;const n=q.shift();if(!n){busy=false;idle();return}busy=true;const u=new SpeechSynthesisUtterance(n);u.lang='ja-JP';u.rate=1.28;u.pitch=1.05;const ja=s.getVoices().find(v=>v.lang&&v.lang.startsWith('ja'));if(ja)u.voice=ja;let done=false;const next=()=>{if(done)return;done=true;clearInterval(w);step(g)};u.onend=u.onerror=next;const t0=Date.now(),w=setInterval(()=>{if(Date.now()-t0>1500&&!s.speaking&&!s.pending)next()},400);s.speak(u)}
+function narrate(){const parts=[];if(S.last&&S.last!==lastSum){const{side,cr,w,mut}=S.last,who=side==='enemy'?'あいては':'あなたは';parts.push((mut?`${who}、${w.name}を召喚しようとしたら、${cr.name}が召喚された。`:`${who}、${cr.name}を召喚。`)+vt(cr))}lastSum=S.last;if(S.eNew){const f=S.eNew;S.eNew=null;parts.push((f.mut?`あいては、${f.w.name}を召喚しようとしたら、${f.cr.name}が召喚された。`:`あいては、${f.cr.name}を召喚。`)+vt(f.cr))}
+ S.log.filter(e=>e.id>spoken&&e.speak).reverse().forEach(e=>parts.push(e.speak));spoken=logId;const pk=S.turn+S.phase;if(pk!==lastPh){lastPh=pk;if(S.phase==='summon')parts.push(mode==='stats'?'錬成してください。スペースキーか、クリックで、声の取り込みが始まります。':'錬成する呪文を選んでください。');else if(S.phase==='action')parts.push('行動を選んでください。攻撃、防御、特殊の、どれかです。');else if(S.phase==='over')parts.push(S.win==='p'?'あなたの勝ちです。もう一度は、エンターキーか左クリック、または「もう一度」と言ってください。タイトルへは、Tキーか右クリック、または「タイトル」と言ってください。':'あなたの負けです。もう一度は、エンターキーか左クリック、または「もう一度」と言ってください。タイトルへは、Tキーか右クリック、または「タイトル」と言ってください。')}if(parts.length)LASTS=parts.join('。');parts.forEach(say)}
+
+// ===== 画面 =====
+let mode=canMeasure?'stats':'button',M=null,SR={on:false,text:'',err:null},txt='';
+const hp=(l,v,c)=>{const sc=c==='#f43f5e'?'#a855f7':'#22c55e',ex=Math.max(0,v-MAXHP);return`<div class="row" style="justify-content:space-between"><span class="sm">${l}</span><b style="font-size:18px">${v}<small class="sm"> / ${MAXHP}</small>${ex?` <small style="color:${sc}">（余剰 +${ex}）</small>`:''}</b></div><div class="bar" style="position:relative"><i style="width:${Math.min(v,MAXHP)/MAXHP*100}%;background:${c}"></i><i style="position:absolute;left:0;top:0;height:100%;width:${ex/MAXHP*100}%;background:${sc}"></i></div>`};
+const pips=n=>`<div class="row" style="margin-top:8px"><span class="sm">${n[0]}</span><span class="pips">${[1,2,3,4,5].map(i=>`<span class="${i<=n[1]?'f':''}"></span>`).join('')}</span><b style="color:var(--ok);font-size:12px">${n[1]}/5</b></div>`;
+const hpStrip=()=>`<div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);padding:6px 0'>${[['あなた',S.p,'#fbbf24'],['あいて',S.e,'#f43f5e']].map(([n,u,c])=>`<div><div class='row' style='justify-content:space-between;font-size:11px'><b style='color:${c}'>${n}のHP</b><b>${u.hp}/100</b></div><div class='bar'><i style='width:${u.hp}%;background:${c}'></i></div><div class='pips' style='margin-top:4px'>${[1,2,3,4,5].map(i=>`<span class='${i<=u.spi?'f':''}' style='width:12px'></span>`).join('')}</div></div>`).join('')}</div>`;
+function card(c,tone,dim,buff){if(!c)return'<div class="empty">まだ錬成していない</div>';const k=col(c.id);
+ return`<div class="cc ${dim?'dim':''}"><div class="row" style="align-items:flex-start">${sbox(c.id)}<div><div style="font-size:18px;font-weight:900;color:${k.ac}">${c.name} <span style='font-size:10px;background:${k.ac};color:#000;padding:0 5px'>${[].concat(c.ty).join('/')}</span></div><div style="font-size:12px;font-weight:700">攻撃 ${c.atk} ／ 防御 ${c.def}</div>${buff?`<div class="nt ok" style="display:inline-block;padding:0 6px;font-size:10px">▲ ${STAT[buff.stat]} +${Math.round((buff.mul-1)*100)}%（このターン）</div>`:''}<div style="font-size:12px;color:var(--vi);margin-top:4px">✦ ${c.sp.name}（気力${c.sp.cost}）: ${note(c.sp)}</div><div class="sm" style="font-style:italic;margin-top:4px">${c.fl}</div></div></div></div>`}
+function title(){$('#app').innerHTML=`<div style="text-align:center;margin-top:28px"><div class="sm" style="color:#fbbf24cc;letter-spacing:.4em">VOICE ALCHEMY BATTLE</div><h1>口八丁の<br>錬金術師</h1><div style="color:#cbd5e1;font-size:14px">唱えた呪文どおりに出るとは、限らない。</div></div>
+<div class="panel" style="font-size:14px">声で奇妙な生き物や武器を錬成して戦う、対戦バカゲー。狙った姿が出なくても、どんな失敗にも使い道がある。笑いながら戦い方を組み立てよう。</div>
+<button class="btn" style="font-size:20px;min-height:64px" data-a="go">はじめる</button><button class="vio" style="padding:12px" data-a="tut">チュートリアル（あそびかた）</button><button class="vio" style="padding:12px" data-a="zoom">拡大表示（Zキー）</button><button class="vio" style="padding:12px" data-a="dex">📖 モンスターズ図鑑</button><button class="ghost mt2" style="flex:none;padding:10px" data-a="mic"></button>
+<div class="panel" style="display:none"><b style="color:#fde68a">あそびかた</b><ol><li>1対1のターン制バトル。HPはおたがい100。</li><li>毎ターン、呪文を「声の抑揚／ボタン」で唱えて錬成し、その生き物で「攻撃／防御／特殊」を選ぶ。</li><li>技は左クリック＝攻撃、中クリック＝防御、右クリック＝特殊（キーボードは A・D・S）。</li><li>錬成の基本は「声の抑揚」。言葉の意味ではなく、抑揚・大きさ・高さで型と能力値が決まる。</li><li>バトルの様子は読み上げます（ON/OFF切替可）。</li><li>錬成のやり直し（唱え直し）は1ターンに1回だけ。</li><li>攻撃か防御で気力+1。特殊能力は気力を使う（最大5）。</li><li>20%の確率で錬成事故。唱えたのとは別の生き物が生まれる。</li><li>9つの属性（炎・草・電気・氷・土・鋼・光・影・伝説）に相性があり、ダメージに倍率がかかる。「吸収」されるとダメージを受けず回復される。</li><li>相手のHPを0にしたら勝ち。</li></ol></div>
+<div class="panel" style="order:-1"><div style="overflow:hidden"><div class="mq" style="display:flex;align-items:flex-start;width:max-content">${C.map(c=>`<div style="width:64px;flex:none;text-align:center;margin-right:8px">${sbox(c.id,64)}<div style="font-size:9px;line-height:1.2">${c.spell}</div></div>`).join('').repeat(2)}</div></div></div>`}
+function over(){const w=S.win==='p';if(!S.overAt)S.overAt=Date.now();sfx(w?'win':'lose');$('#app').innerHTML=`<div style="text-align:center;margin-top:40px;display:flex;flex-direction:column;gap:14px;align-items:center"><div style="font-size:56px">${w?'🏆':'💀'}</div><h1 style="font-size:36px">${w?'勝利！':'敗北…'}</h1><div style="font-size:14px">${w?'相手のHPを0にした！ 口八丁の力、ここに極まれり。':'相手にHPを0にされた…。もう一度、唱え直してみよう。'}</div>
+<div class="panel" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%"><div><div class="sm">ターン数</div><b style="font-size:20px">${S.turn}</b></div><div><div class="sm">あなたの錬成事故</div><b style="font-size:20px;color:#f0abfc">${S.mut.p}回</b></div><div><div class="sm">相手の錬成事故</div><b style="font-size:20px;color:#f0abfc">${S.mut.e}回</b></div></div>
+<button class="btn" style="min-height:60px;font-size:18px" data-a="go">もう一度戦う</button><button class="ghost" style="width:100%;flex:none" data-a="title">タイトルへ戻る</button><div class="sm" style="font-weight:400;line-height:1.8">どこをクリックしてもOK：左クリック＝もう一度／右クリック＝タイトル<br>キー：Enter または Space＝もう一度／T または Esc＝タイトル<br>声：「もう一度」「タイトル」</div></div>`}
+function render(){if(!S){title();micTag();return}if(S.phase==='over'){over();narrate();listenCmd();return}
+ const l=S.log[0]||{t:'',tone:'system'},mu=l.tone==='mutation',sp=S.p.cr&&S.p.cr.sp,can=sp&&S.p.spi>=sp.cost;
+ const ch=(a,t,k,nm,d,bg,bd,on)=>`<button class="ch ${on?'':'off'}" style="border-color:${bd}" data-a="act" data-v="${a}"><b style="background:${on?bg:'#475569'};color:${on?'#111':'#cbd5e1'}">${t}</b><span><span style="font-weight:900;font-size:15px">${nm}</span><small>${d}</small></span><kbd>${k}</kbd></button>`;
+ $('#app').innerHTML=`<div class="row sm" style="justify-content:space-between;flex-wrap:wrap"><span class="row">ターン ${S.turn} <button class="vio" data-a="dex">📖 図鑑</button><button class="ghost mt2" style="flex:none;font-size:10px;padding:3px 8px" data-a="mic"></button></span><span class="row">${window.speechSynthesis?`<button class="ghost" style="flex:none;border-radius:99px;padding:3px 10px;font-size:10px" data-a="tts">${reading?'🔊 読み上げON':'🔇 読み上げOFF'}</button>`:''}<span style="color:var(--en)">あいて：${ENEMY}</span></span>
+<div class="panel">${hp('あいてのHP',S.e.hp,'#f43f5e')}<div class="sm" style="color:#fecdd3;margin:10px 0 4px">あいての錬成獣</div>${card(S.e.cr,'e',false,S.e.buff)}${pips(['あいての気力',S.e.spi])}</div>
+<div><div class="log ${mu?'mu':''}" role="status" aria-live="polite">${mu?'<span class="tag">錬成事故</span>':''}${esc(l.t)}</div><details style="margin-top:6px;border:1px solid #ffffff1a;padding:6px 12px"><summary class="sm" style="cursor:pointer">これまでの流れ（${S.log.length}件）</summary><ul style="list-style:none;padding:0;max-height:170px;overflow-y:auto;font-size:11px;margin:6px 0">${S.log.map(e=>`<li style="color:${{player:'#fde68a',enemy:'#fda4af',mutation:'#f5d0fe'}[e.tone]||'#94a3b8'}">・${esc(e.t)}</li>`).join('')}</ul></details></div>
+<div class="panel">${hp('あなたのHP',S.p.hp,'#fbbf24')}<div class="sm" style="color:#fde68a;margin:10px 0 4px">あなたの錬成獣${S.phase==='summon'?'（前のターンの結果）':''}</div>${card(S.p.cr,'p',S.phase==='summon',S.p.buff)}${pips(['あなたの気力',S.p.spi])}</div>
+<div class="panel">${S.phase==='summon'?'<div id="sm"></div>':S.phase==='action'?`<div class="sm" style="color:#fde68a;margin-bottom:4px">「${S.p.cr.name}」でどうする？</div><div class="sm" style="font-weight:400;margin-bottom:8px">どこをクリックしてもOK（左クリック＝攻撃・中クリック＝防御・右クリック＝特殊／A・D・S キーでも可）</div><div id="ag">${ch('attack','クリック','A','攻撃','ダメージを与える＋気力+1','#fcd34d','#fcd34d66',1)}${ch('defend','中クリック','D','防御','シールドをはる＋気力+1','#38bdf8','#7dd3fc66',1)}${ch('special','右クリック','S','特殊：'+sp.name,`気力${sp.cost}／${note(sp)}${can?'':`（あと気力${sp.cost-S.p.spi}）`}`,'#a78bfa','#c4b5fd66',can)}</div><div id="nt"></div><button class="ghost" style="width:100%;margin-top:6px;${S.redo?'opacity:.5;cursor:not-allowed':''}" data-a="redo" ${S.redo?'disabled':''}>${S.redo?'唱え直しはこのターンもう使った':'唱え直す（このターン1回だけ）'}</button>`:'<div style="text-align:center;padding:20px;font-weight:700;color:#cbd5e1">あいてが呪文を唱えている…</div>'}</div>`;
+ if(S.phase==='summon')renderSummon();narrate();micTag();listenCmd()}
+// 錬成パネル
+function matchHtml(){if(!M)return'';const r=M.r,n=M.n;
+ if(!r.cr)return`<div class="nt fail">「${esc(r.heard)}」では呪文として分かりませんでした。言い直すか、近い呪文を選んでください。</div>${r.cand.length?`<div class="sm">近い呪文</div><div class="grid" style="margin:6px 0">${r.cand.map(c=>`<button class="sb" data-a="spell" data-v="${c.id}">${c.spell}</button>`).join('')}</div>`:''}<button class="ghost" style="width:100%" data-a="retry">もう一度唱える</button>`;
+ return`<div class="nt ok">「${esc(r.heard)}」と聞こえました。呪文は「${r.cr.spell}」です。</div>${card(r.cr)}<div class="row" style="margin-top:8px"><button class="btn" style="font-size:14px" data-a="spell" data-v="${r.cr.id}">この呪文で錬成する</button><button class="ghost" data-a="retry" style="padding:16px">もう一度唱える</button></div>`}
+function renderSummon(){const el=$('#sm');if(!el)return;const tabs=[['stats','📣 声の抑揚',canMeasure],['voice','🎤 唱える',!!SRC],['text','⌨️ 文字',1],['button','🔘 ボタン',1]].filter(t=>t[2]&&t[0]!=='voice'&&t[0]!=='text');let b='';
+ if(mode==='stats')b=`<div class="sm" style="color:#fde68a">声の抑揚が主役。何を言ってもOKで、「抑揚・大きさ・高さ」で型と強さが決まります</div>`+(VS.on?`<div class="nt" style="border-color:#e879f966">声をとらえています… 何か声を出してください</div>${[['loud','大きさ','攻撃力','#fbbf24'],['pitch','高さ','特殊の威力','#a78bfa'],['swing','抑揚','防御力','#34d399']].map(m=>`<div class="mt"><span style="width:44px">${m[1]}</span><span class="b"><i id="m-${m[0]}" style="width:0;background:${m[3]}"></i></span><span style="width:96px;text-align:right;color:var(--mut)"><span id="v-${m[0]}">0%</span> → ${m[2]}</span></div>`).join('')}<button class="btn" style="background:#1e293b;color:#e2e8f0;min-height:64px" data-a="vstop">とめる（この声で錬成）</button>`:`<button class="btn" style="min-height:68px;font-size:18px;margin-top:8px" data-a="vstart">📣 声をとらえる</button>`)+(VS.err?`<div class="nt fail">${VS.err}</div>`:'');
+ else if(mode==='voice')b=`<div class="sm" style="color:#fde68a">マイクに向かって呪文を唱えると、その場で錬成されます（例：「炎のドラゴン」「大根騎士」）</div>`+(SR.on?`<div class="nt" style="border-color:#e879f966">聞いています… ${SR.text?`「${esc(SR.text)}」`:'（呪文をどうぞ）'}</div><button class="btn" style="background:#1e293b;color:#e2e8f0" data-a="srstop">とめる</button>`:`<button class="btn" style="min-height:68px;font-size:18px;margin-top:8px" data-a="srstart">🎤 声で唱える</button>`)+(SR.err?`<div class="nt fail">${SR.err}</div>`:matchHtml());
+ else if(mode==='text')b=`<form id="tf"><label class="sm" style="color:#fde68a">呪文を文字で唱える（例：「炎のドラゴン」）</label><div class="row" style="margin-top:6px"><input type="text" id="ti" value="${esc(txt)}" placeholder="えんのどらごん" autocomplete="off"><button class="btn" style="width:auto;min-height:52px">唱える</button></div></form>${matchHtml()}`;
+ else b=`<div class="sm" style="color:#fde68a;margin-bottom:8px">呪文を唱えて錬成する（${C.length}種類）</div><div class="grid g4">${C.map(c=>`<button class="sb" data-a="spell" data-v="${c.id}">${sbox(c.id,48)}<b style="font-size:14px">${c.spell}</b><div style="font-size:11px;color:#cbd5e1">攻撃${c.atk} 防御${c.def}</div><div style="font-size:10px;color:var(--vi)">✦${c.sp.name}（気力${c.sp.cost}）</div></button>`).join('')}</div>`;
+ el.innerHTML=`<div class="tabs">${tabs.map(t=>`<button class="${mode===t[0]?'on':''}" data-a="mode" data-v="${t[0]}">${t[1]}</button>`).join('')}</div><div style="margin-top:10px">${b}</div>`}
+function srStart(){SR={on:false,text:'',err:null};M=null;const r=new SRC();r.lang='ja-JP';r.interimResults=true;r.continuous=false;r.maxAlternatives=3;
+ r.onstart=()=>{SR.on=true;renderSummon()};
+ r.onresult=e=>{let f='';for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal)f+=x[0].transcript;else SR.text=x[0].transcript.trim()}if(f)SR.text=f.trim();renderSummon()};
+ r.onerror=e=>{SR.err={'not-allowed':'マイクの使用が許可されていません。埋め込み表示では遮断されることがあります。HTMLファイルを保存してブラウザで直接開くと使えます。','service-not-allowed':'この環境では音声認識を使えません。HTMLファイルを直接開くか、文字・ボタンをお使いください。','no-speech':'声が聞こえませんでした。少し大きめの声でもう一度どうぞ。','audio-capture':'マイクが見つかりません。','network':'通信できず、聞き取れませんでした。'}[e.error]||`聞き取りに失敗しました（${e.error}）。`;SR.on=false;renderSummon()};
+ r.onend=()=>{SR.on=false;if(SR.err||!SR.text){renderSummon();return}const m=match(SR.text);if(m.cr)pSummon(m.cr.id,SR.text);else{M={r:m};renderSummon()}};
+ SR.rec=r;try{r.start()}catch(e){SR.err='聞き取りを開始できませんでした。もう一度お試しください。';renderSummon()}}
+// 図鑑
+function dex(){const d=$('#dex');d.innerHTML=`<div style="padding:12px 16px;border-bottom:2px solid #ffffff1a"><b style="color:#ede9fe">モンスターズ図鑑（全${C.length}種）</b><div class="sm" style="font-weight:400">唱える呪文ごとに生まれる生き物が決まっています。ただし${Math.round(MUT*100)}%の確率で錬成事故が起き、別の生き物になります。</div></div><div style="max-height:60dvh;overflow-y:auto">${voiceTypeHtml()}${C.map(c=>`<div class="dx" id="dx${C.indexOf(c)+1}" style="border-color:${col(c.id).ac}">${sbox(c.id,56)}<div><b style="color:${col(c.id).ac}">${c.name}</b><div style="font-size:11px">属性「${[].concat(c.ty).join('/')}」／声の型「${poolOf(c.id)}」／呪文「${c.spell}」／攻撃 ${c.atk}・防御 ${c.def}</div><div style="font-size:11px;color:var(--vi)">✦ ${c.sp.name}（気力${c.sp.cost}）: ${note(c.sp)}</div><div class="sm" style="font-style:italic">${c.fl}</div></div></div>`).join('')}</div>${chartHtml()}<div style="padding:8px"><button class="ghost" style="width:100%" data-a="close">閉じる</button></div>`;d.showModal();DX={i:-1,auto:true};d.onclose=()=>{if(DX)clearTimeout(DX.t);DX=null;stopCmd();sayNow('図鑑を閉じました。')};sayNow(`モンスター図鑑です。全${C.length}種類を順に読み上げます。つぎ、まえ、もう一度、とめる、とじる、と声に出すか、右矢印、左矢印、R、S、Escapeキーで操作できます。まず、声の型の解説からです。`)}
+// 操作
+const H={go:start,title:()=>{S=null;render()},dex,close:()=>$('#dex').close(),tts:()=>{reading=!reading;if(!reading){gen++;q=[];busy=false;speechSynthesis.cancel()}render()},
+ mode:v=>{if(VS.on)vsKill();mode=v;M=null;SR.err=null;renderSummon();tutEv('tab')},spell:v=>pSummon(v,M&&M.r.heard||null),retry:()=>{M=null;txt='';SR={on:false,text:'',err:null};renderSummon()},
+ redo,act:v=>pAct(v),vstart:vsStart,vstop:vsStop,srstart:srStart,srstop:()=>SR.rec&&SR.rec.stop()};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&H[t.dataset.a])H[t.dataset.a](t.dataset.v);else if(!t&&S&&S.phase==='summon'&&mode==='stats'&&!VS.on&&(!TUT||TUT.v)&&!e.target.closest('dialog,#tut,summary,details'))vsStart();else if(!t&&S&&S.phase==='action'&&!e.target.closest('dialog,#tut,summary,details'))pAct('attack');else if(!t&&overOK()&&!e.target.closest('dialog,#tut,summary,details'))H.go()});
+document.addEventListener('submit',e=>{if(e.target.id!=='tf')return;e.preventDefault();txt=$('#ti').value.trim();if(txt)M={r:match(txt)};renderSummon()});
+document.addEventListener('mousedown',e=>{if(S&&S.phase==='over'&&(e.button===1||e.button===2)&&overOK()&&!e.target.closest('dialog,#tut,summary,details,[data-a]')){e.preventDefault();H.title();return}if(!S||S.phase!=='action'||!(e.button===1||e.button===2)||e.target.closest('dialog,#tut,summary,details,[data-a]:not([data-a=act])'))return;e.preventDefault();pAct(e.button===1?'defend':'special')});
+// ===== アクセシビリティ =====
+let CR=null,DX=null,LASTS='',GO=true,BT=0,QT=0,SRBAD=false;
+function sfx(t){try{const c=sfx.c=sfx.c||new AC();if(c.state==='suspended')c.resume();let at=c.currentTime;const P={atk:[[440,.08,'square'],[220,.1,'square']],def:[[330,.12,'triangle'],[392,.12,'triangle']],sp:[[523,.08,'sawtooth'],[659,.08,'sawtooth'],[784,.14,'sawtooth']],dmg:[[160,.15,'sawtooth']],heal:[[523,.1,'sine'],[659,.1,'sine'],[784,.16,'sine']],mut:[[300,.1,'square'],[180,.1,'square'],[420,.1,'square'],[150,.2,'square']],win:[[523,.12,'triangle'],[659,.12,'triangle'],[784,.12,'triangle'],[1047,.3,'triangle']],lose:[[392,.2,'sine'],[330,.2,'sine'],[262,.3,'sine']]}[t];for(const[f,d,w]of P){const o=c.createOscillator(),g=c.createGain();o.type=w;o.frequency.value=f;g.gain.setValueAtTime(.12,at);g.gain.exponentialRampToValueAtTime(.001,at+d);o.connect(g);g.connect(c.destination);o.start(at);o.stop(at+d);at+=d}}catch(e){}}
+const sayNow=t=>{if(window.speechSynthesis){gen++;q=[];busy=false;speechSynthesis.cancel()}LASTS=t;say(t)};
+const nk=s=>String(s).normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60));
+const dexOpen=()=>{const d=$('#dex');return !!(d&&d.open)};
+const overOK=()=>S&&S.phase==='over'&&Date.now()-(S.overAt||0)>1200;
+const poolOf=id=>Object.values(POOLS).find(p=>p.ids.includes(id)).label;
+const pnames=k=>POOLS[k].ids.map(i=>C.find(c=>c.id===i).name).join('、');
+const VT=[['power','声の抑揚（高さの上下）が大きいとき'],['heal','抑揚は小さく、声が高めのとき'],['guard','抑揚は小さく、声が低めのとき']];
+const voiceTxt=()=>'声の型について。'+VT.map(([k,w])=>`${w}は、${POOLS[k].label}。${pnames(k)}のどれかになります。`).join('')+'声の大きさは攻撃力に、高さと抑揚は特殊能力の威力に影響します。錬成事故が起きると、同じ型の別のモンスターが生まれます。';
+const voiceTypeHtml=()=>`<div class='dx' id='dx0' style='border-color:#fbbf24;display:block'><b style='color:#fbbf24'>声の抑揚で錬成するときの型</b>${VT.map(([k,w])=>`<div style='font-size:12px;margin-top:4px'><b>${POOLS[k].label}</b>：${w}<br><span class='sm' style='font-weight:400'>${pnames(k)}</span></div>`).join('')}<div class='sm' style='font-weight:400;margin-top:4px'>声の大きさは攻撃力、高さと抑揚は特殊能力の威力に影響。錬成事故（20%）では同じ型の別のモンスターになります。</div></div>`;
+const dexText=c=>`${c.name}。属性は${[].concat(c.ty).join('、')}。声の型は${poolOf(c.id)}。攻撃力${c.atk}、防御力${c.def}。特殊能力は${c.sp.name}、気力${c.sp.cost}。${note(c.sp)}。${c.fl}`;
+function dexRead(i){clearTimeout(DX.t);DX.i=Math.max(0,Math.min(C.length,i));document.querySelectorAll('.dx').forEach((e,j)=>{e.style.outline=j===DX.i?'4px solid #fff':''});const el=$('#dx'+DX.i);if(el)el.scrollIntoView({block:'center'});sayNow(DX.i?dexText(C[DX.i-1]):voiceTxt())}
+const statusTxt=()=>`ターン${S.turn}。あなたの体力は${S.p.hp}、気力は${S.p.spi}。`+(S.e.cr?`相手の${S.e.cr.name}、体力は${S.e.hp}、気力は${S.e.spi}。`:`相手の体力は${S.e.hp}。`)+(S.p.cr?`あなたの生き物は、${S.p.cr.name}。`:'');
+const TCMD=s=>{const n=nk(s);if(/はじめ|すたーと|開始/.test(n))H.go();else if(/ずかん|図鑑/.test(n))H.dex();else if(/ちゅーとりある|あそびかた|遊び方/.test(n))H.tut();else if(/かくだい|拡大/.test(n))H.zoom()};
+const DCMD=s=>{const n=nk(s);if(/とじ|閉|おわり|終了/.test(n))$('#dex').close();else if(/まえ|前|もどる|戻/.test(n))dexRead(DX.i-1);else if(/もう一度|もういちど|くりかえ/.test(n))dexRead(DX.i);else if(/とめ|止/.test(n)){clearTimeout(DX.t);DX.auto=false;sayNow('自動送りを止めました。つぎ、で次へ進みます。')}else if(/つぎ|次/.test(n)){DX.auto=true;dexRead(DX.i+1)}};
+const BCMD=s=>{const n=nk(s);if(/こうげき|攻撃/.test(n))pAct('attack');else if(/ぼうぎょ|防御/.test(n))pAct('defend');else if(/とくしゅ|特殊/.test(n))pAct('special');else if(/じょうきょう|状況|たいりょく|体力/.test(n))sayNow(statusTxt())};
+const OCMD=s=>{const n=nk(s);if(/もう一度|もういちど/.test(n))H.go();else if(/たいとる/.test(n))H.title()};
+function cmdFor(){if(TUT)return null;if(dexOpen())return DCMD;if(!S)return TCMD;if(S.phase==='over')return OCMD;if(S.phase==='action')return BCMD;return null}
+function stopCmd(){if(CR){const r=CR;CR=null;try{r.abort()}catch(_){}}}
+function listenCmd(){if(CR||SRBAD||!SRC||!cmdFor()||!MIC.ok||(MIC.perm&&MIC.perm!=='granted')||VS.on||GO)return;const r=new SRC();r.lang='ja-JP';r.continuous=true;r.onresult=e=>{if(busy||Date.now()-QT<1200)return;const s=e.results[e.results.length-1][0].transcript,f=cmdFor();if(f)f(s)};r.onend=()=>{if(CR===r){CR=null;setTimeout(listenCmd,1000)}};r.onerror=e=>{if(/not-allowed|service-not-allowed|audio-capture/.test(e.error))SRBAD=true};CR=r;try{r.start()}catch(_){CR=null}}
+function idle(){QT=Date.now();if(dexOpen()&&DX){if(DX.i<0){dexRead(0);return}if(DX.auto)DX.t=setTimeout(()=>{if(DX&&DX.auto&&dexOpen()){if(DX.i<C.length)dexRead(DX.i+1);else{DX.auto=false;sayNow('以上です。もう一度は R、とじるは Escape キーです。')}}},6500)}listenCmd()}
+const MENUTXT='はじめるは1、図鑑は2、チュートリアルは3。数字キー、または、声で、はじめる、図鑑、チュートリアル、と言ってください。拡大表示は Z キー。もう一度聞くには R キーです。';
+async function begin(){BT=Date.now();GO=false;const g=$('#go');if(g)g.remove();const p=micInit();if(!MIC.ok&&canMeasure)sayNow('口八丁の錬金術師です。マイクの許可を求める画面が出ています。許可を選んでください。キーボードでは、タブキーとエンターキーで選べます。');await p;sayNow((MIC.ok?'マイクが使えます。':canMeasure?'マイクは使えません。キーボードとクリックで遊べます。':'')+MENUTXT)}
+document.body.insertAdjacentHTML('beforeend',`<div id='go' style='position:fixed;inset:0;z-index:100;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:20px;cursor:pointer'><div style='font-size:36px;font-weight:900;color:#fde68a'>口八丁の錬金術師</div><div style='font-size:24px;font-weight:900;border:4px solid #fbbf24;padding:16px 24px'>どのキーでも、どこをクリックしても、はじまります</div><div style='font-size:16px'>音声案内が流れます。音が出る状態でお待ちください。</div></div>`);
+['keydown','pointerdown','click'].forEach(t=>addEventListener(t,e=>{if(GO){e.preventDefault();e.stopImmediatePropagation();if(t!=='click')begin()}else if(t==='click'&&Date.now()-BT<600){e.preventDefault();e.stopImmediatePropagation()}},true));
+H.zoom=()=>document.documentElement.classList.toggle('big');
+addEventListener('keydown',e=>{if(GO||TUT||e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key.toLowerCase();
+ if(dexOpen()){if(k==='arrowright'||k==='n'){e.preventDefault();DX.auto=true;dexRead(DX.i+1)}else if(k==='arrowleft'||k==='p'){e.preventDefault();dexRead(DX.i-1)}else if(k==='r')dexRead(DX.i);else if(k==='s'){DX.auto=!DX.auto;clearTimeout(DX.t);sayNow(DX.auto?'自動送りを再開します。':'自動送りを止めました。')}return}
+ if(!S){if(k==='1'||k==='enter')H.go();else if(k==='2')H.dex();else if(k==='3')H.tut();else if(k==='z')H.zoom();else if(k==='r')sayNow(LASTS||MENUTXT);return}
+ if(S.phase==='over'){if(!overOK())return;e.preventDefault();if(k==='enter'||k===' ')H.go();else if(k==='t'||k==='escape')H.title();return}
+ if(k==='h')sayNow(statusTxt());else if(k==='r')sayNow(LASTS)});
+// ===== チュートリアル =====
+let TK=0;
+const TS=[
+{k:'t',x:'まず、ゲームそのもののルールです。これは、声で錬成した生き物と戦う、一対一のターン制バトルです。あなたと相手の体力は、どちらも最初は150です。上限を超えた回復分も、余剰の体力として残ります。毎ターン、生き物を錬成してから、攻撃、防御、特殊能力のどれかを選びます。攻撃か防御をすると、気力が1たまります。特殊能力を使うには、気力が必要です。気力は最大5までためられます。相手の体力が0になったら、あなたの勝ちです。'},
+{k:'t',x:'次に、モンスターの錬成方法です。錬成は、声の抑揚で行います。声の大きさ、高さ、抑揚の大きさによって、生まれる生き物の型や、攻撃力、防御力、特殊能力の威力が変わります。ボタンで呪文を選んで錬成することもできます。ただし、5回に1回、つまり20パーセントの確率で、錬成失敗が起こります。これは錬成事故と呼ばれ、ねらった生き物とは別の生き物が生まれてしまいます。錬成のやり直しは、1ターンに1回だけできます。'},
+{k:'t',x:'最後に、モンスターの特性です。モンスターには、炎、草、電気、氷、土、鋼、光、影、伝説の、9つの属性があり、属性の相性によって、攻撃のダメージの倍率が変わります。まず、弱点の例です。炎が草を攻撃すると、130パーセントのダメージで、効果ばつぐんです。逆に、炎が土を攻撃すると、70パーセントに減ってしまいます。次に、吸収の例です。電気が土を攻撃すると、ダメージは与えられず、逆に相手の体力が回復します。続いて、光、影、伝説の属性です。光と影は、ほとんどの属性に105パーセントで当たりますが、光は草に、影は影に、吸収されます。また、光と影は、おたがいに110パーセントで有利です。炎が光や影を攻撃した場合は、等倍の100パーセントです。伝説は、伝説以外のすべての属性に120パーセントで当たりますが、伝説以外の属性が伝説を攻撃すると、80パーセントに減ってしまいます。'},
+{k:'a',v:1,w:'sum',sel:'#sm',x:'ここからは、操作の説明です。まず、声での錬成です。スペースキーか、画面の好きな場所のクリックで、声の取り込みが始まります。声の大きさ、高さ、抑揚が測られ、終わるときは、もう一度スペースキーを押すか、とめるボタンを押します。5秒たつと、自動で終わります。'},
+{k:'a',w:'act',sel:'#ag',x:'錬成できました。次は、行動の選び方です。攻撃は左クリック、防御は中クリック、特殊は右クリック。画面のどこをクリックしても実行できます。キーボードでは、A、D、Sのキーでも選べます。'},
+{k:'q',x:'ここからは、ボタンでの錬成の説明です。説明が不要なときは、スキップと声に出してください。必要なときは、そのままお待ちください。'},
+{k:'a',w:'tab',sel:'#sm .tabs [data-v=button]',x:'ボタンでの錬成は、ボタンのタブで行います。'},
+{k:'a',w:'sum',sel:'#sm .g4',x:'呪文のボタンを押すと、その生き物が錬成されます。ここでも、錬成事故が起こることがあります。'},
+{k:'a',w:'act',sel:'#ag',x:'行動の選び方は、声のときと同じです。好きな行動を選んでください。'},
+{k:'t',x:'説明は以上です。それでは、ゲームを楽しんでください。'}];
+const TUTHTML=`<div id='tut' style='position:fixed;inset:0;pointer-events:none;z-index:50'><div id='sp' style='position:fixed;display:none;border-radius:6px;box-shadow:0 0 0 200vmax #000b;outline:3px solid #fbbf24'></div><div style='position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:#0b0a14f2;border-top:2px solid #fbbf24;pointer-events:auto'><div id='tx' style='font-size:13px;max-height:30dvh;overflow-y:auto'></div><div class='row' style='margin-top:8px'><span id='tst' class='sm' style='flex:1'></span><button class='ghost' id='tn' data-a='tnext' style='flex:none'>この説明をとばす</button><button class='ghost' id='tk' data-a='tskip' style='flex:none'>スキップ</button><button class='ghost' data-a='tutx' style='flex:none'>✕ 終了</button></div></div></div>`;
+const YM=[[/例/g,'れい'],...[['開始時','かいしじ'],['凍って','こおって'],['やり直し','やりなおし'],['同じ','おなじ'],['口八丁','くちはっちょう'],['錬金術師','れんきんじゅつし'],['錬金術','れんきんじゅつ'],['錬成','れんせい'],['呪文','じゅもん'],['召喚','しょうかん'],['無属性','むぞくせい'],['属性','ぞくせい'],['相性','あいしょう'],['弱点','じゃくてん'],['吸収','きゅうしゅう'],['倍率','ばいりつ'],['無視','むし'],['軽減','けいげん'],['回復','かいふく'],['体力','たいりょく'],['気力','きりょく'],['特殊能力','とくしゅのうりょく'],['特殊','とくしゅ'],['攻撃力','こうげきりょく'],['防御力','ぼうぎょりょく'],['攻撃','こうげき'],['防御','ぼうぎょ'],['威力','いりょく'],['確率','かくりつ'],['事故','じこ'],['失敗','しっぱい'],['図鑑','ずかん'],['項目','こうもく'],['任意','にんい'],['音声','おんせい'],['操作','そうさ'],['拡大表示','かくだいひょうじ'],['画面','がめん'],['許可','きょか'],['上下','じょうげ'],['業火','ごうか'],['思索','しさく'],['綿毛','わたげ'],['縫い','ぬい'],['夜目','よめ'],['夜そのもの','よるそのもの'],['龍','りゅう'],['魔物','まもの'],['激辛','げきから'],['特効薬','とっこうやく'],['栄養豊富','えいようほうふ'],['殻','から'],['羊','ひつじ'],['大根','だいこん'],['騎士','きし'],['哲学者','てつがくしゃ'],['粘液','ねんえき'],['冷凍保存','れいとうほぞん'],['大地','だいち'],['加護','かご'],['癒し','いやし'],['祈り','いのり'],['普通','ふつう'],['本物','ほんもの'],['中身','なかみ'],['呼吸','こきゅう'],['野菜','やさい'],['有利','ゆうり'],['最大','さいだい'],['最初','さいしょ'],['最後','さいご'],['以外','いがい'],['以上','いじょう'],['数字','すうじ'],['自動送り','じどうおくり'],['自動','じどう'],['解説','かいせつ'],['読み上げ','よみあげ'],['戻り','もどり'],['中クリック','ちゅうクリック'],['左矢印','ひだりやじるし'],['右矢印','みぎやじるし'],['左','ひだり'],['右','みぎ'],['力の型','ちからのかた'],['型','かた'],['毎ターン','まいターン'],['一度','いちど'],['行います','おこないます'],['間(?=に|、)','あいだ']].map(([a,b])=>[new RegExp(a,'g'),b]),[/115/g,'ひゃくじゅうご'],[/85/g,'はちじゅうご'],[/15/g,'じゅうご'],[/雷雲/g,'らいうん'],[/影響/g,'えいきょう'],[/130/g,'ひゃくさんじゅう'],[/105/g,'ひゃくご'],[/110/g,'ひゃくじゅう'],[/120/g,'ひゃくにじゅう'],[/100/g,'ひゃく'],[/5回に1回/g,'ごかいに、いっかい'],[/1ターンに1回/g,'ひとターンに、いっかい'],[/1回/g,'いっかい'],[/20/g,'にじゅう'],[/70/g,'ななじゅう'],[/80/g,'はちじゅう'],[/5秒/g,'ごびょう'],[/9つ/g,'ここのつ'],[/最大5/g,'最大、ご'],[/1たまり/g,'いち、たまり'],[/A、D、S/g,'エー、ディー、エス'],[/一対一/g,'いちたいいち'],[/抑揚/g,'よくよう'],[/キャベト魔ト/g,'キャベトマト'],[/炎/g,'ほのお'],[/草/g,'くさ'],[/電気/g,'でんき'],[/雷/g,'かみなり'],[/氷/g,'こおり'],[/土/g,'つち'],[/鋼/g,'はがね'],[/光/g,'ひかり'],[/影/g,'かげ'],[/伝説/g,'でんせつ'],[/等倍/g,'とうばい'],[/(?<![0-9])0(?![0-9])/g,'ゼロ'],[/HP/g,'たいりょく'],[/Escape/g,'エスケープ'],[/Enter/g,'エンター'],[/(?<![A-Za-z])[A-Z](?![A-Za-z])/g,c=>({A:'エー',D:'ディー',R:'アール',S:'エス',T:'ティー',Z:'ゼット',H:'エイチ'})[c]||c]];
+const KN=n=>{const h=n/100|0,t=(n%100)/10|0,o=n%10;return['','ひゃく','にひゃく','さんびゃく','よんひゃく','ごひゃく','ろっぴゃく','ななひゃく','はっぴゃく','きゅうひゃく'][h]+['','じゅう','にじゅう','さんじゅう','よんじゅう','ごじゅう','ろくじゅう','ななじゅう','はちじゅう','きゅうじゅう'][t]+['','いち','に','さん','よん','ご','ろく','なな','はち','きゅう'][o]};
+const yomi=t=>YM.reduce((s,[a,b])=>s.replace(a,b),String(t).replace(/(?<![0-9])\d{3}(?![0-9])/g,m=>KN(+m)));
+function tsay(t,cb){const s=window.speechSynthesis;let d=0,w;const fin=()=>{if(d)return;d=1;clearInterval(w);cb()};if(!s){setTimeout(fin,t.length*150);return}
+ s.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.15;const ja=s.getVoices().find(v=>v.lang&&v.lang.startsWith('ja'));if(ja)u.voice=ja;u.onend=u.onerror=fin;const t0=Date.now();w=setInterval(()=>{if(Date.now()-t0>2000&&!s.speaking&&!s.pending)fin()},400);s.speak(u)}
+function tsayAll(t,cb,tok){const p=t.split(/(?<=。)/);(function n(){if(tok!==TK)return;const x=p.shift();x?tsay(x,n):cb()})()}
+function tskipListen(){if(!SRC||(MIC.perm&&MIC.perm!=='granted'))return;const r=new SRC();r.lang='ja-JP';r.interimResults=true;r.onresult=e=>{const s=[...e.results].map(x=>x[0].transcript).join('');if(/スキップ|すきっぷ|skip/i.test(s)){TUT.rec=0;try{r.stop()}catch(_){}tutSkip()}};r.onend=()=>{if(TUT&&TUT.rec===r)try{r.start()}catch(_){}};TUT.rec=r;try{r.start()}catch(_){}}
+const tutSkip=()=>TUT&&tutGo(TS.length-1);
+function tutGo(i){const tok=++TK;if(TUT.rec){const r=TUT.rec;TUT.rec=0;try{r.stop()}catch(_){}}const s=TS[i];if(!s)return tutEnd();
+ if(s.v&&!canMeasure||s.w==='tab'&&mode==='button')return tutGo(i+1);
+ Object.assign(TUT,{i,k:s.k,w:s.w,sel:s.sel,v:s.v,ready:false});
+ if(s.w==='act'&&S.phase==='summon')pSummon(pick(C).id);
+ $('#tx').textContent=s.x;$('#tn').style.display=s.k==='a'?'':'none';$('#tk').style.display=s.k==='q'?'':'none';$('#tst').textContent=s.k!=='q'?'🔊 説明中…':'';
+ setTimeout(()=>{const el=s.sel&&document.querySelector(s.sel);if(el)el.scrollIntoView({block:'center',behavior:'smooth'})},80);
+ tsayAll(yomi(s.x+(s.k==='t'?(i===TS.length-1?'音声が終わったら、任意のクリックか、スペースキーで、タイトルに戻ります。':'音声がすべて終わったら、任意のクリックか、スペースキーで、次の項目に進みます。'):s.k==='a'?'それでは、操作してください。':'')),()=>{if(tok!==TK||!TUT)return;
+  if(s.k==='t'||s.k==='a'){TUT.ready=true;$('#tst').textContent=s.k==='t'?'▶ クリック／スペースキーで次へ':'▶ 操作してください'}
+  else if(s.k==='q'){TUT.ready=true;tskipListen();setTimeout(()=>{if(tok===TK&&TUT)tutGo(i+1)},9000)}},tok)}
+const tutEv=w=>{if(TUT&&TUT.k==='a'&&TUT.w===w)tutGo(TUT.i+1)},tutNext=()=>{if(TUT.ready)tutGo(TUT.i+1)};
+function tick(){if(!TUT)return;const sp=$('#sp'),el=TUT.sel&&document.querySelector(TUT.sel);if(sp){if(el){const r=el.getBoundingClientRect(),p=6;Object.assign(sp.style,{display:'block',left:r.left-p+'px',top:r.top-p+'px',width:r.width+2*p+'px',height:r.height+2*p+'px'})}else sp.style.display='none'}requestAnimationFrame(tick)}
+function tutStart(){TUT={};mode=canMeasure?'stats':'button';VS.err=null;start();document.body.insertAdjacentHTML('beforeend',TUTHTML);document.body.style.paddingBottom='170px';tick();tutGo(0)}
+function tutEnd(){TK++;if(TUT&&TUT.rec)try{TUT.rec.stop()}catch(_){}TUT=null;mode=canMeasure?'stats':'button';if(window.speechSynthesis)speechSynthesis.cancel();const e=$('#tut');if(e)e.remove();document.body.style.paddingBottom='';vsKill();S=null;render()}
+document.addEventListener('click',e=>{if(!TUT||!TUT.k)return;const t=e.target;if(t.closest('[data-a=tutx]'))return;if(t.closest('#tut [data-a]')){if(!TUT.ready){e.stopPropagation();e.preventDefault()}return}
+ if(TUT.k==='t'){e.stopPropagation();e.preventDefault();if(TUT.ready)tutNext();return}
+ if(!TUT.ready){e.stopPropagation();e.preventDefault();return}
+ if((TUT.v||TUT.w==='act')&&!t.closest('[data-a]'))return;
+ if(!(TUT.sel&&t.closest(TUT.sel))){e.stopPropagation();e.preventDefault()}},true);
+addEventListener('keydown',e=>{if(e.key!==' '||e.repeat)return;
+ if(TUT&&TUT.k==='t'){e.preventDefault();if(TUT.ready)tutNext();return}
+ if(TUT&&TUT.k!=='t'&&!TUT.ready){e.preventDefault();return}
+ if(!S||S.phase!=='summon'||mode!=='stats'||(TUT&&!TUT.v)||$('#dex').open)return;
+ e.preventDefault();if(document.activeElement)document.activeElement.blur();VS.on?vsStop():vsStart()},true);
+H.mic=()=>{SRBAD=false;micInit(true)};Object.assign(H,{tut:tutStart,tnext:()=>TUT&&TUT.k==='a'&&tutGo(TUT.i+1),tskip:tutSkip,tutx:tutEnd});micInit();addEventListener('pointerdown',()=>{if(!MIC.ok)micInit()},{once:true});
+document.addEventListener('contextmenu',e=>{if(S&&(S.phase==='action'||S.phase==='over')&&!e.target.closest('dialog,#tut,summary,details'))e.preventDefault()});
+document.addEventListener('keydown',e=>{if(!S||S.phase!=='action'||e.repeat||e.metaKey||e.ctrlKey||e.altKey||$('#dex').open||/INPUT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();if(k==='a')pAct('attack');else if(k==='d')pAct('defend');else if(k==='s')pAct('special')});
+render();
+</script>
+</body>
+</html>
